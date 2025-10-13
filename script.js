@@ -24,9 +24,9 @@ function atualizarApuracao() {
 
   // Ordena por votos
   const candidatos = [
-    { id: 'BNK', name: 'BNK', party: 'BNK - 10', photo: 'https://i.ibb.co/v6zZSgqz/image.png', votos: votos.BNK, percent: porcentagens.BNK },
-    { id: 'PUR', name: 'PUR', party: 'PUR - 20', photo: 'https://i.ibb.co/gZB1ZzXq/Screenshot-12.png', votos: votos.PUR, percent: porcentagens.PUR },
-    { id: 'THYRD', name: 'THYRD', party: 'THYRD - 30', photo: 'https://i.ibb.co/WW1DYk6J/oiieee.png', votos: votos.THYRD, percent: porcentagens.THYRD }
+    { id: 'BNK', name: 'BNK', party: 'BNK - PA.T.G]', photo: 'https://i.ibb.co/v6zZSgqz/image.png', votos: votos.BNK, percent: porcentagens.BNK },
+    { id: 'PUR', name: 'PUR', party: 'PUR - [C.U]', photo: 'https://i.ibb.co/gZB1ZzXq/Screenshot-12.png', votos: votos.PUR, percent: porcentagens.PUR },
+    { id: 'THYRD', name: 'THYRD', party: 'THYRD - [Partido CTR]', photo: 'https://i.ibb.co/WW1DYk6J/oiieee.png', votos: votos.THYRD, percent: porcentagens.THYRD }
   ].sort((a, b) => b.votos - a.votos);
 
   const temSegundoTurno = candidatos.every(c => parseFloat(c.percent) <= 50);
