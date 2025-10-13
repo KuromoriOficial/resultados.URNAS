@@ -1,9 +1,9 @@
 // === CONFIGURAÇÃO DOS VOTOS (definidos via código) === //
 const totalVotos = 14; // total de votos possíveis
 const votos = {
-  BNK: 2,
-  PUR: 0,
-  THYRD: 1
+  BNK: 3,
+  PUR: 1,
+  THYRD: 2
 };
 
 // === FUNÇÃO PRINCIPAL === //
