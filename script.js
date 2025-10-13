@@ -2,8 +2,8 @@
 const totalVotos = 14; // total de votos possíveis
 const votos = {
   BNK: 3,
-  PUR: 1,
-  THYRD: 2
+  PUR: 3,
+  THYRD: 4
 };
 
 // === FUNÇÃO PRINCIPAL === //
