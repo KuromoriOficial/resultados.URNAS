@@ -4,14 +4,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Apuração - BNK / PUR / THYRD</title>
+  <title>Apuração - 1º e 2º Turno</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 
 <body>
   <main class="container">
+    <!-- ========================== -->
+    <!-- 1º TURNO (ORIGINAL) -->
+    <!-- ========================== -->
     <header class="topbar">
       <div class="status">
         <h2 id="sectionsText">0% dos votos totalizados</h2>
@@ -34,11 +36,132 @@
     </section>
 
     <footer class="footer">
-      <small>Arquivo local - versão 1.1.5 (nov.e Bolas).</small>
+      <small>Apuração do 1º Turno - Arquivo local - versão 1.1.5</small>
+    </footer>
+
+    <hr style="margin:40px 0;border:none;border-top:2px solid #ccc;">
+
+    <!-- ========================== -->
+    <!-- 2º TURNO (CÓPIA NOVA) -->
+    <!-- ========================== -->
+    <header class="topbar">
+      <div class="status">
+        <h2 id="sectionsText2">0% dos votos totalizados (2º Turno)</h2>
+        <div class="progressWrap">
+          <div class="progressBar" id="progressBar2"></div>
+        </div>
+        <small id="lastUpdate2">Última atualização: —</small>
+      </div>
+    </header>
+
+    <section class="candidates" id="candidates2">
+      <!-- Candidate cards do 2º turno -->
+    </section>
+
+    <section class="charts">
+      <div class="chartCard small">
+        <h3>Total de votos (2º Turno)</h3>
+        <div class="totalBox" id="totalBox2">0</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <small>Apuração do 2º Turno - Arquivo local - versão 1.1.5</small>
     </footer>
   </main>
 
   <script src="script.js"></script>
-</body>
 
+  <!-- ========================== -->
+  <!-- SCRIPT DO 2º TURNO -->
+  <!-- ========================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Votos do segundo turno
+      const totalVotos2 = 9;
+      const votos2 = {
+        PUR: 6,
+        THYRD: 3
+      };
+
+      const candidatesWrap2 = document.getElementById('candidates2');
+      const totalBox2 = document.getElementById('totalBox2');
+      const sectionsText2 = document.getElementById('sectionsText2');
+      const progressBar2 = document.getElementById('progressBar2');
+      const lastUpdate2 = document.getElementById('lastUpdate2');
+
+      const somaVotos2 = votos2.PUR + votos2.THYRD;
+      const porcentagens2 = {
+        PUR: ((votos2.PUR / somaVotos2) * 100).toFixed(2),
+        THYRD: ((votos2.THYRD / somaVotos2) * 100).toFixed(2)
+      };
+
+      const candidatos2 = [
+        { id: 'PUR', name: 'PUR', party: 'PUR - [C.U]', photo: 'https://i.ibb.co/gZB1ZzXq/Screenshot-12.png', votos: votos2.PUR, percent: porcentagens2.PUR },
+        { id: 'THYRD', name: 'THYRD', party: 'THYRD - [Partido CTR]', photo: 'https://i.ibb.co/WW1DYk6J/oiieee.png', votos: votos2.THYRD, percent: porcentagens2.THYRD }
+      ].sort((a, b) => b.votos - a.votos);
+
+      candidatesWrap2.innerHTML = '';
+      candidatos2.forEach((c, index) => {
+        const status = index === 0 ? '✅ Eleito (2º turno)' : '❌ Não Eleito';
+
+        const card = document.createElement('article');
+        card.className = 'candidateCard';
+        card.innerHTML = `
+          <div class="avatar"><img src="${c.photo}" alt="${c.name}"></div>
+          <div class="info">
+            <div class="nameRow">
+              <div>
+                <div class="name">${c.name}</div>
+                <div class="party">${c.party}</div>
+              </div>
+              <div>
+                <div class="badge">${status}</div>
+              </div>
+            </div>
+            <div class="votesRow">
+              <div>
+                <div style="font-size:0.75rem;color:var(--muted)">Votos</div>
+                <div class="votes">${c.votos.toLocaleString()}</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:0.75rem;color:var(--muted)">Porcentagem</div>
+                <div class="percent">${c.percent}%</div>
+              </div>
+            </div>
+          </div>`;
+
+
+
+        candidatesWrap2.appendChild(card);
+      });
+
+      totalBox2.textContent = somaVotos2.toLocaleString();
+      const apuracaoPercent2 = ((somaVotos2 / totalVotos2) * 100).toFixed(2);
+      sectionsText2.textContent = `${apuracaoPercent2}% dos votos totalizados (2º Turno)`;
+      progressBar2.style.width = `${apuracaoPercent2}%`;
+      lastUpdate2.textContent = `Última atualização: ${new Date().toLocaleString()}`;
+
+      const ctx2 = document.getElementById('barChart2').getContext('2d');
+      new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: candidatos2.map(c => c.name),
+          datasets: [{
+            label: 'Votos (2º turno)',
+            data: candidatos2.map(c => c.votos),
+            borderRadius: 8,
+            barThickness: 28,
+            backgroundColor: ['#22c55e', '#f59e0b']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    });
+  </script>
+</body>
 </html>
